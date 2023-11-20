@@ -50,13 +50,12 @@ async def extract_text(soup, selectors):
     if not selectors:
         return soup.get_text()
     elements = soup.select(', '.join(selectors))
-    extracted_text = "\n".join([e.get_text() for e in elements])
-    return extracted_text
+    return "\n".join([e.get_text() for e in elements])
 
 
 async def crawl(start_url, domain):
     visited = []
-    queue = set([start_url])
+    queue = {start_url}
 
     async with aiohttp.ClientSession() as session:
         with open(args.stats, 'w') as f:
